@@ -11,7 +11,7 @@ export function useReview(userId: string | undefined) {
   const supabase = createClient();
 
   const startSession = useCallback(async () => {
-    if (!userId) return;
+    if (!userId || !supabase) return null;
     setLoading(true);
     const now = new Date().toISOString();
     const { data } = await supabase
@@ -49,7 +49,7 @@ export function useReview(userId: string | undefined) {
 
   const rateCard = useCallback(
     async (quality: number) => {
-      if (!session || session.isComplete) return;
+      if (!session || session.isComplete || !supabase) return;
 
       const card = session.cards[session.currentIndex];
       const result: ReviewResult = {

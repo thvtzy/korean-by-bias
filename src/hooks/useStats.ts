@@ -17,7 +17,7 @@ export function useStats(userId: string | undefined) {
   const supabase = createClient();
 
   const fetchStats = useCallback(async () => {
-    if (!userId) return;
+    if (!userId || !supabase) return;
 
     const now = new Date();
     const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);

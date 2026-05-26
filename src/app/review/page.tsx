@@ -20,7 +20,12 @@ export default function ReviewPage() {
   const supabase = createClient();
 
   useEffect(() => {
+    if (!supabase) {
+      setUser({ id: "demo", email: "demo@local" });
+      return;
+    }
     async function getSession() {
+      if (!supabase) return;
       const { data } = await supabase.auth.getSession();
       if (data.session?.user) {
         setUser({ id: data.session.user.id, email: data.session.user.email });

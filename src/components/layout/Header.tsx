@@ -16,6 +16,7 @@ export function Header() {
 
   useEffect(() => {
     async function getUser() {
+      if (!supabase) return;
       const { data } = await supabase.auth.getUser();
       if (data.user) {
         setUser({ id: data.user.id, email: data.user.email });
@@ -25,7 +26,7 @@ export function Header() {
   }, [supabase]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    if (supabase) await supabase.auth.signOut();
     setUser(null);
     router.refresh();
   };

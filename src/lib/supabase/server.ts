@@ -7,8 +7,8 @@ export async function createClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Supabase environment variables not configured");
+  if (!supabaseUrl || !supabaseKey || supabaseUrl.includes("placeholder")) {
+    throw new Error("Supabase not configured");
   }
 
   return createServerClient(supabaseUrl, supabaseKey, {
@@ -23,11 +23,10 @@ export async function createClient() {
           cookiesToSet.forEach(({ name, value, options }) =>
             cookieStore.set(name, value, options)
           );
-        } catch {
-          // Can be ignored in Server Components
-        }
+        } catch {}
       },
     },
   });
 }
+
 
