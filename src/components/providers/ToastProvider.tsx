@@ -56,25 +56,25 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className={cn(
-                "bg-bg-elevated/90 backdrop-blur-glass border border-border-strong rounded-xl px-4 py-3",
-                "shadow-glass flex items-center gap-3"
+                "bg-white border border-border-soft rounded-xl px-4 py-3",
+                "shadow-soft-lg flex items-center gap-3"
               )}
             >
-              <p className="text-sm text-white/80 flex-1">{toast.message}</p>
+              <p className="text-sm text-text-primary flex-1">{toast.message}</p>
               {toast.undoLabel && toast.onUndo && (
                 <button
                   onClick={() => {
                     toast.onUndo?.();
                     removeToast(toast.id);
                   }}
-                  className="text-sm font-medium text-accent-pink hover:text-accent-purple transition-colors shrink-0"
+                  className="text-sm font-semibold text-accent-pink hover:text-accent-lavender transition-colors shrink-0"
                 >
                   {toast.undoLabel}
                 </button>
               )}
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-white/30 hover:text-white/60 transition-colors shrink-0"
+                className="text-text-muted/50 hover:text-text-muted transition-colors shrink-0"
               >
                 <X size={14} />
               </button>

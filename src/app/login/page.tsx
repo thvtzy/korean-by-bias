@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Brain, Mail } from "lucide-react";
+import { Heart, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { GlassInput } from "@/components/ui/GlassInput";
 import { NeoButton } from "@/components/ui/NeoButton";
@@ -20,7 +20,6 @@ export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
 
-  // Secret admin entry: tap the title 5 times
   const handleTitleTap = () => {
     setAdminTaps((prev) => prev + 1);
   };
@@ -66,8 +65,8 @@ export default function LoginPage() {
       >
         <GlassCard className="p-8 space-y-6" glow>
           <div className="text-center space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center mx-auto shadow-glow-sm">
-              <Brain size={24} className="text-white" />
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-pink to-accent-lavender flex items-center justify-center mx-auto">
+              <Heart size={26} className="text-white" fill="white" />
             </div>
             <h1
               onClick={handleTitleTap}
@@ -75,15 +74,15 @@ export default function LoginPage() {
             >
               Korean by Bias
               {adminTaps > 0 && adminTaps < 5 && (
-                <span className="text-[10px] text-white/10 ml-1">
+                <span className="text-[10px] text-text-muted/30 ml-1">
                   {5 - adminTaps}
                 </span>
               )}
             </h1>
-            <p className="text-white/40 text-sm">
+            <p className="text-text-muted text-sm">
               {sent
-                ? "Check your email for the magic link!"
-                : "Sign in with your email to get started"}
+                ? "Cek email kamu untuk magic link ✦"
+                : "Login dengan email buat mulai koleksi"}
             </p>
           </div>
 
@@ -105,16 +104,16 @@ export default function LoginPage() {
             </form>
           ) : (
             <div className="text-center space-y-4">
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                <p className="text-sm text-emerald-400">
-                  Magic link sent to <strong>{email}</strong>
+              <div className="p-4 rounded-xl bg-accent-mint/15 border border-accent-mint/30">
+                <p className="text-sm text-accent-mint/90 font-medium">
+                  Magic link dikirim ke <strong className="text-text-primary">{email}</strong>
                 </p>
               </div>
               <button
                 onClick={() => setSent(false)}
-                className="text-sm text-white/40 hover:text-white/60 transition-colors"
+                className="text-sm text-text-muted hover:text-text-secondary transition-colors"
               >
-                Use a different email
+                Ganti email
               </button>
             </div>
           )}

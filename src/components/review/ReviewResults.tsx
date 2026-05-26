@@ -24,19 +24,19 @@ export function ReviewResults({ results, onReviewAgain, onBackToDashboard }: Rev
     >
       <GlassCard className="p-10 text-center max-w-sm w-full">
         <Sparkles className="mx-auto mb-4 text-accent-pink" size={36} />
-        <h2 className="text-2xl font-bold text-white mb-1">Session Complete!</h2>
-        <p className="text-white/40 text-sm mb-6">
-          Great work reviewing your vocabulary
+        <h2 className="text-2xl font-bold text-text-primary mb-1">Session Complete!</h2>
+        <p className="text-text-secondary text-sm mb-6">
+          Great work reviewing your vocabulary ✦
         </p>
 
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="bg-white/[0.03] rounded-xl p-4">
-            <p className="text-3xl font-bold text-white">{results.length}</p>
-            <p className="text-[11px] text-white/40">Cards</p>
+          <div className="bg-bg rounded-xl p-4">
+            <p className="text-3xl font-bold text-text-primary">{results.length}</p>
+            <p className="text-[11px] text-text-muted">Cards</p>
           </div>
-          <div className="bg-white/[0.03] rounded-xl p-4">
+          <div className="bg-bg rounded-xl p-4">
             <p className="text-3xl font-bold text-accent-pink">{accuracy}%</p>
-            <p className="text-[11px] text-white/40">Accuracy</p>
+            <p className="text-[11px] text-text-muted">Accuracy</p>
           </div>
         </div>
 

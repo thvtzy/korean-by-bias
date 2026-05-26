@@ -39,7 +39,7 @@ export function WordCard({ word, index, onDelete }: WordCardProps) {
             <h3 className="text-lg font-semibold text-white truncate">
               {word.word}
             </h3>
-            <Badge variant={word.language === "ko" ? "pink" : "purple"}>
+            <Badge variant={word.language === "ko" ? "pink" : "lavender"}>
               {LANGUAGE_LABELS[word.language] || word.language}
             </Badge>
           </div>

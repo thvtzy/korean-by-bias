@@ -10,18 +10,18 @@ interface NeoButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const NeoButton = forwardRef<HTMLButtonElement, NeoButtonProps>(
   ({ className, variant = "default", size = "md", loading, children, disabled, ...props }, ref) => {
     const sizeClasses = {
-      sm: "px-3 py-1.5 text-sm rounded-md",
+      sm: "px-3 py-1.5 text-xs rounded-xl",
       md: "px-6 py-3 text-sm rounded-xl",
-      lg: "px-8 py-4 text-base rounded-xl",
+      lg: "px-8 py-4 text-sm rounded-2xl",
     };
 
     const variantClasses = {
       default:
-        "bg-gradient-to-r from-accent-pink to-accent-purple text-white font-semibold shadow-neo-sm border-2 border-neo-black hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:scale-95",
+        "bg-gradient-to-r from-accent-pink to-accent-lavender text-white font-semibold hover:opacity-90 active:scale-[0.98]",
       ghost:
-        "bg-transparent text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent",
+        "bg-transparent text-text-secondary hover:text-text-primary hover:bg-bg",
       outline:
-        "bg-transparent text-white border-2 border-white/20 hover:border-accent-pink/50 hover:text-accent-pink",
+        "bg-transparent text-text-primary border border-border-soft hover:border-accent-pink/50 hover:text-accent-pink",
     };
 
     return (
@@ -29,9 +29,9 @@ const NeoButton = forwardRef<HTMLButtonElement, NeoButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          "inline-flex items-center justify-center gap-2 font-medium",
+          "inline-flex items-center justify-center gap-2 font-semibold",
           "transition-all duration-200",
-          "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-neo-sm disabled:hover:translate-x-0 disabled:hover:translate-y-0",
+          "disabled:opacity-40 disabled:cursor-not-allowed",
           sizeClasses[size],
           variantClasses[variant],
           className

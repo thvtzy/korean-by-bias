@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Brain, LogOut, BookOpen, Menu, X } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { UserProfile } from "@/types";
-import { NeoButton } from "@/components/ui/NeoButton";
 
-export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+interface HeaderProps {
+  collectionProgress?: { total: number; mastered: number };
+}
+
+export function Header({ collectionProgress }: HeaderProps) {
   const [user, setUser] = useState<UserProfile | null>(null);
-  const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
@@ -25,77 +25,49 @@ export function Header() {
     getUser();
   }, [supabase]);
 
-  const handleLogout = async () => {
-    sessionStorage.removeItem("bias-admin");
-    if (supabase) await supabase.auth.signOut();
-    setUser(null);
-    router.push("/login");
-  };
+  const isAdmin = typeof window !== "undefined" && sessionStorage.getItem("bias-admin") === "true";
+  const pct = collectionProgress && collectionProgress.total > 0
+    ? Math.round((collectionProgress.mastered / collectionProgress.total) * 100)
+    : 0;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border-glass bg-bg/80 backdrop-blur-xl">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center shadow-glow-sm">
-              <Brain size={16} className="text-white" />
-            </div>
-            <span className="font-display font-bold text-lg bg-gradient-to-r from-accent-pink to-accent-purple bg-clip-text text-transparent">
-              Korean by Bias
-            </span>
-          </Link>
-
-          <nav className="hidden sm:flex items-center gap-4">
-            <Link
-              href="/review"
-              className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
-            >
-              <BookOpen size={16} />
-              Review
-            </Link>
-            {user && (
-              <>
-                <span className="text-xs text-white/30">{user.email}</span>
-                <NeoButton variant="ghost" size="sm" onClick={handleLogout}>
-                  <LogOut size={14} />
-                  Logout
-                </NeoButton>
-              </>
-            )}
-          </nav>
-
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden p-2 text-white/60 hover:text-white"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="sm:hidden pb-4 space-y-3 border-t border-border-glass pt-3">
-            <Link
-              href="/review"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-white/60 hover:text-white rounded-lg hover:bg-white/[0.03]"
-            >
-              <BookOpen size={16} />
-              Review Mode
-            </Link>
-            {user && (
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setMobileMenuOpen(false);
-                }}
-                className="flex items-center gap-2 px-3 py-2 text-sm text-white/60 hover:text-red-400 rounded-lg hover:bg-white/[0.03] w-full text-left"
-              >
-                <LogOut size={16} />
-                Logout
-              </button>
-            )}
+    <header className="sticky top-0 z-30 bg-bg/80 backdrop-blur-xl border-b border-border-subtle">
+      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-pink to-accent-lavender flex items-center justify-center">
+            <Heart size={16} className="text-white" fill="white" />
           </div>
-        )}
+          <span className="font-display font-bold text-lg text-text-primary">
+            Korean by Bias
+          </span>
+        </Link>
+
+        <div className="flex items-center gap-3">
+          {collectionProgress && (
+            <div className="hidden sm:flex items-center gap-2">
+              <span className="text-[11px] text-text-muted">
+                <span className="font-bold text-accent-pink">{collectionProgress.mastered}</span>
+                <span>/{collectionProgress.total} mastered</span>
+              </span>
+              <div className="w-20 h-1.5 bg-border-subtle rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-accent-pink to-accent-lavender rounded-full transition-all duration-500"
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
+            </div>
+          )}
+          {user && (
+            <span className="text-[10px] text-text-muted hidden sm:inline">
+              {user.email}
+            </span>
+          )}
+          {isAdmin && (
+            <span className="text-[10px] text-accent-pink font-semibold border border-accent-pink/30 rounded-full px-2 py-0.5">
+              me
+            </span>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -11,18 +11,18 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-sm font-medium text-white/60">
+          <label className="block text-xs font-semibold text-text-secondary">
             {label}
           </label>
         )}
         <input
           ref={ref}
           className={cn(
-            "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-sm border border-border-glass rounded-xl",
-            "text-white placeholder:text-white/20",
+            "w-full px-4 py-3 bg-bg border border-border-soft rounded-xl",
+            "text-text-primary placeholder:text-text-muted/50 text-sm",
             "transition-all duration-200",
-            "focus:outline-none focus:border-accent-pink/50 focus:ring-1 focus:ring-accent-pink/20 focus:bg-white/[0.05]",
-            error && "border-red-500/50 focus:border-red-500",
+            "focus:outline-none focus:border-accent-pink focus:ring-2 focus:ring-accent-pink/15",
+            error && "border-red-300 focus:border-red-400 focus:ring-red-200",
             className
           )}
           {...props}
@@ -44,17 +44,17 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-sm font-medium text-white/60">
+          <label className="block text-xs font-semibold text-text-secondary">
             {label}
           </label>
         )}
         <textarea
           ref={ref}
           className={cn(
-            "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-sm border border-border-glass rounded-xl",
-            "text-white placeholder:text-white/20 resize-none",
+            "w-full px-4 py-3 bg-bg border border-border-soft rounded-xl",
+            "text-text-primary placeholder:text-text-muted/50 text-sm resize-none",
             "transition-all duration-200",
-            "focus:outline-none focus:border-accent-pink/50 focus:ring-1 focus:ring-accent-pink/20 focus:bg-white/[0.05]",
+            "focus:outline-none focus:border-accent-pink focus:ring-2 focus:ring-accent-pink/15",
             className
           )}
           {...props}
@@ -76,23 +76,23 @@ const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-sm font-medium text-white/60">
+          <label className="block text-xs font-semibold text-text-secondary">
             {label}
           </label>
         )}
         <select
           ref={ref}
           className={cn(
-            "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-sm border border-border-glass rounded-xl",
-            "text-white appearance-none cursor-pointer",
+            "w-full px-4 py-3 bg-bg border border-border-soft rounded-xl",
+            "text-text-primary text-sm appearance-none cursor-pointer",
             "transition-all duration-200",
-            "focus:outline-none focus:border-accent-pink/50 focus:ring-1 focus:ring-accent-pink/20",
+            "focus:outline-none focus:border-accent-pink focus:ring-2 focus:ring-accent-pink/15",
             className
           )}
           {...props}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-bg-elevated">
+            <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}

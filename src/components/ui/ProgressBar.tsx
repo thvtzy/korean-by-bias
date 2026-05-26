@@ -21,17 +21,17 @@ export function ProgressBar({
     <div className={cn("space-y-2", className)}>
       {(label || showValue) && (
         <div className="flex justify-between items-center">
-          {label && <span className="text-sm text-white/60">{label}</span>}
+          {label && <span className="text-sm text-text-secondary">{label}</span>}
           {showValue && (
-            <span className="text-sm font-medium text-white/80">
+            <span className="text-sm font-medium text-text-primary">
               {value}/{max}
             </span>
           )}
         </div>
       )}
-      <div className="w-full h-2.5 bg-white/[0.04] rounded-full overflow-hidden border border-border-glass">
+      <div className="w-full h-2.5 bg-border-subtle rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-accent-pink via-accent-purple to-accent-pink rounded-full transition-all duration-700 ease-out"
+          className="h-full bg-gradient-to-r from-accent-pink to-accent-lavender rounded-full transition-all duration-700 ease-out"
           style={{ width: `${pct}%` }}
         />
       </div>
