@@ -38,12 +38,12 @@ export default function ReviewPage() {
   const { session, loading, startSession, flipCard, rateCard, endSession } = useReview(userId);
 
   useEffect(() => {
-    if (userId && hasStarted && !session && !loading) {
+    if (userId && hasStarted && !session && !loading && !noCards) {
       startSession().then((result) => {
         if (result === null) setNoCards(true);
       });
     }
-  }, [userId, hasStarted, session, loading, startSession]);
+  }, [userId, hasStarted, session, loading, startSession, noCards]);
 
   const handleStart = () => {
     setHasStarted(true);
