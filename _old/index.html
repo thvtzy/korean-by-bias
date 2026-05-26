@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Korean by Bias — Learn Korean from your favorite idols</title>
+  <meta name="description" content="A vocabulary tracker for K-pop fans learning Korean. Save words from songs and shows, review with flashcards." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <h1>Korean by Bias</h1>
+      <p class="tagline">Save the words your bias actually says.</p>
+      <p class="count" id="count">0 words saved</p>
+    </header>
+
+    <section class="form-section">
+      <form id="word-form" autocomplete="off">
+        <div class="field">
+          <label for="word">Word <span class="required">*</span></label>
+          <input type="text" id="word" name="word" placeholder="사랑해" required />
+        </div>
+
+        <div class="field">
+          <label for="meaning">Meaning <span class="required">*</span></label>
+          <input type="text" id="meaning" name="meaning" placeholder="I love you" required />
+        </div>
+
+        <div class="field">
+          <label for="example">Example sentence <span class="optional">(optional)</span></label>
+          <input type="text" id="example" name="example" placeholder="사랑해, 너만을" />
+        </div>
+
+        <div class="field">
+          <label for="source">Source <span class="optional">(optional)</span></label>
+          <input type="text" id="source" name="source" placeholder="BTS — I Need U" />
+        </div>
+
+        <div class="field">
+          <label for="language">Language</label>
+          <select id="language" name="language">
+            <option value="ko" selected>Korean</option>
+            <option value="ja">Japanese</option>
+            <option value="zh">Mandarin</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Save word</button>
+        <div class="keyboard-hints">
+          <kbd class="kbd">Ctrl+Enter</kbd> to submit
+          <kbd class="kbd">Esc</kbd> to reset
+          <kbd class="kbd">/</kbd> to focus
+          <kbd class="kbd">Ctrl+Z</kbd> to undo
+        </div>
+      </form>
+    </section>
+
+    <section class="stats-section" id="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total">0</span>
+          <span class="stat-label">words saved</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-week">0</span>
+          <span class="stat-label">this week</span>
+        </div>
+        <div class="stat-card stat-card--streak">
+          <span class="stat-value" id="stat-streak">—</span>
+          <span class="stat-label">day streak</span>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" id="progress-fill"></div>
+        <span class="progress-bar__text" id="progress-text">Goal: 50 words</span>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <div id="empty-state" class="empty-state">
+        <p>No words yet. Add your first one above.</p>
+      </div>
+      <ul id="word-list" class="word-list" hidden></ul>
+    </section>
+
+    <footer>
+      <p>Built by a fan, for fans. <a href="https://github.com/thvtzy/korean-by-bias" target="_blank" rel="noopener">View on GitHub</a></p>
+    </footer>
+  </main>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
