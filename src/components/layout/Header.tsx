@@ -26,9 +26,10 @@ export function Header() {
   }, [supabase]);
 
   const handleLogout = async () => {
+    sessionStorage.removeItem("bias-admin");
     if (supabase) await supabase.auth.signOut();
     setUser(null);
-    router.refresh();
+    router.push("/login");
   };
 
   return (

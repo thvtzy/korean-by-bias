@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
+const ADMIN_SECRET = "bias-admin";
+
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -12,6 +14,13 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
 
   useEffect(() => {
+    // Check admin bypass first
+    if (typeof window !== "undefined" && sessionStorage.getItem(ADMIN_SECRET) === "true") {
+      setAuthed(true);
+      setLoading(false);
+      return;
+    }
+
     if (!supabase) {
       setAuthed(true);
       setLoading(false);

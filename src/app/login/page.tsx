@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Brain, Mail, Loader2 } from "lucide-react";
+import { Brain, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { GlassInput } from "@/components/ui/GlassInput";
 import { NeoButton } from "@/components/ui/NeoButton";
 import { GlassCard } from "@/components/ui/GlassCard";
+
+const ADMIN_SECRET = "bias-admin";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [adminTaps, setAdminTaps] = useState(0);
+  const router = useRouter();
   const supabase = createClient();
+
+  // Secret admin entry: tap the title 5 times
+  const handleTitleTap = () => {
+    setAdminTaps((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (adminTaps >= 5) {
+      sessionStorage.setItem(ADMIN_SECRET, "true");
+      router.push("/");
+    }
+  }, [adminTaps, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,8 +69,16 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center mx-auto shadow-glow-sm">
               <Brain size={24} className="text-white" />
             </div>
-            <h1 className="font-display font-bold text-2xl gradient-text">
+            <h1
+              onClick={handleTitleTap}
+              className="font-display font-bold text-2xl gradient-text cursor-default select-none"
+            >
               Korean by Bias
+              {adminTaps > 0 && adminTaps < 5 && (
+                <span className="text-[10px] text-white/10 ml-1">
+                  {5 - adminTaps}
+                </span>
+              )}
             </h1>
             <p className="text-white/40 text-sm">
               {sent
